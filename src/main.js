@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import './style.css';
 import './story.css';
 import { buildScene, makeMarker, refreshCanvases } from './scene.js';
+import { createCats } from './cats.js';
 import { renderPanel } from './panels.js';
 import { I18N, OBJECT_ORDER, OBJECT_ICONS } from './content.js';
 import { renderStory, storyText, STORY_ANCHOR } from './story.js';
@@ -50,6 +51,7 @@ const goal = { target: HOME.target.clone(), zoom: 1 };
 let frustumH = 30;
 
 let world = { objects: {} };
+let cats = null;
 const markers = {};
 const helpers = {};
 
@@ -70,6 +72,11 @@ if (renderer) {
   scene.add(sun, sun.target);
 
   world = buildScene(scene);
+  cats = createCats(scene);
+  if (import.meta.env.DEV) {
+    window.__cats = cats;
+    window.__focus = (v, z) => (goal.target.copy(v), (goal.zoom = z));
+  }
 
   for (const [id, o] of Object.entries(world.objects)) {
     const m = makeMarker();
@@ -126,20 +133,21 @@ function pick(clientX, clientY) {
   const r = canvas.getBoundingClientRect();
   pointer.set(((clientX - r.left) / r.width) * 2 - 1, -((clientY - r.top) / r.height) * 2 + 1);
   raycaster.setFromCamera(pointer, camera);
-  const hit = raycaster.intersectObjects(groups(), true)[0];
-  return hit?.object.userData.id ?? null;
+  const hit = raycaster.intersectObjects([...groups(), ...(cats?.roots ?? [])], true)[0];
+  if (!hit) return null;
+  return hit.object.userData.cat !== undefined ? `cat${hit.object.userData.cat}` : hit.object.userData.id;
 }
 
 function setHover(id, x, y) {
   if (state.hover !== id) {
-    if (state.hover) helpers[state.hover].visible = false;
+    if (helpers[state.hover]) helpers[state.hover].visible = false;
     state.hover = id;
-    if (id) helpers[id].visible = true;
+    if (helpers[id]) helpers[id].visible = true;
     document.body.style.cursor = id ? 'pointer' : '';
   }
   const tip = $('tooltip');
   if (id) {
-    tip.textContent = I18N[state.lang].objects[id];
+    tip.textContent = id.startsWith('cat') ? I18N[state.lang].cat : I18N[state.lang].objects[id];
     tip.style.left = `${x}px`;
     tip.style.top = `${y}px`;
     tip.classList.add('show');
@@ -157,7 +165,8 @@ canvas.addEventListener('pointerdown', (e) => (downAt = [e.clientX, e.clientY]))
 canvas.addEventListener('pointerup', (e) => {
   if (!downAt || Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]) > 8) return;
   const id = pick(e.clientX, e.clientY);
-  if (id) open(id);
+  if (id?.startsWith('cat')) cats.pet(Number(id.slice(3)));
+  else if (id) open(id);
   else if (state.open) close();
 });
 canvas.addEventListener('pointerleave', () => setHover(null));
@@ -310,6 +319,7 @@ $('start').addEventListener('click', () => {
   goal.zoom = HOME.zoom;
   setTimeout(() => $('intro').remove(), 600);
   if (!renderer) toast(I18N[state.lang].noWebgl, 6000);
+  cats?.start();
 });
 
 /* ---------------- Loop ---------------- */
@@ -328,13 +338,13 @@ function tick() {
   camera.lookAt(cam.target);
   camera.zoom = cam.zoom;
   camera.updateProjectionMatrix();
+  cats?.update(dt, time);
 
   if (!reducedMotion) {
     Object.values(markers).forEach((m, i) => {
       m.position.y = m.userData.baseY + Math.sin(time * 3 + i) * 0.25;
       m.rotation.y = time * 1.5;
     });
-    if (world.cat) world.cat.scale.y = 1 + Math.sin(time * 2) * 0.03;
     if (time - blinkAt > 0.55) {
       blinkAt = time;
       cursorOn = !cursorOn;

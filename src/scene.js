@@ -169,21 +169,23 @@ function buildPlant(scene, [x, y, z], s = 1) {
   scene.add(g);
 }
 
-function buildCat(scene) {
-  const g = new THREE.Group();
-  const fur = '#e08a3a';
-  box(g, [0, 0, 0], [2.2, 1, 1.3], fur);
-  box(g, [0.2, 0.95, 0.1], [1.6, 0.2, 1.1], '#c9732a', { shadow: false });
-  box(g, [2, 0, 0.05], [1.1, 1.1, 1.2], fur);
-  box(g, [2.1, 1.1, 0.1], [0.3, 0.35, 0.3], fur);
-  box(g, [2.7, 1.1, 0.1], [0.3, 0.35, 0.3], fur);
-  box(g, [3.1, 0.45, 0.25], [0.05, 0.12, 0.25], '#222', { shadow: false });
-  box(g, [3.1, 0.45, 0.75], [0.05, 0.12, 0.25], '#222', { shadow: false });
-  box(g, [-0.9, 0, 0.8], [1.2, 0.4, 0.4], '#c9732a');
-  g.position.set(-1, 0.1, -1.5);
-  g.rotation.y = 0.5;
-  scene.add(g);
-  return g;
+// Portinha de gato na parede esquerda e caminha das gatinhas
+function buildCatStuff(scene) {
+  box(scene, [-12, 0, 7.6], [0.16, 3, 2.4], '#6b4423', { shadow: false });
+  box(scene, [-11.93, 0, 7.85], [0.12, 2.6, 1.9], '#2a2118', { shadow: false });
+  box(scene, [-11.9, 2.15, 7.85], [0.14, 0.12, 1.9], '#8a5a2e', { shadow: false });
+
+  box(scene, [5.8, 0, 4.8], [2.8, 0.25, 2.8], '#6b8fc7');
+  box(scene, [5.8, 0.25, 4.8], [2.8, 0.45, 0.4], '#5a7cb3');
+  box(scene, [5.8, 0.25, 7.2], [2.8, 0.45, 0.4], '#5a7cb3');
+  box(scene, [5.8, 0.25, 5.2], [0.4, 0.45, 2], '#5a7cb3');
+  box(scene, [8.2, 0.25, 5.2], [0.4, 0.45, 2], '#5a7cb3');
+  box(scene, [6.2, 0.25, 5.2], [2, 0.12, 2], '#f4efe6', { shadow: false });
+  // potinhos de comida e água
+  box(scene, [-10.4, 0, 10.4], [1, 0.4, 1], '#d64545');
+  box(scene, [-10.25, 0.4, 10.55], [0.7, 0.05, 0.7], '#8a5a2e', { shadow: false });
+  box(scene, [-9.1, 0, 10.4], [1, 0.4, 1], '#3b5b8c');
+  box(scene, [-8.95, 0.4, 10.55], [0.7, 0.05, 0.7], '#9fd8ff', { shadow: false });
 }
 
 /* ---------------- Objetos interativos ---------------- */
@@ -478,7 +480,7 @@ export function buildScene(scene) {
   buildChair(scene);
   buildPlant(scene, [9.2, 0, -7.6], 1);
   buildPlant(scene, [9.2, 13.5, -11.2], 0.55);
-  const cat = buildCat(scene);
+  buildCatStuff(scene);
 
   const computer = buildComputer();
   const objects = {
@@ -500,7 +502,7 @@ export function buildScene(scene) {
     o.size = o.box.getSize(new THREE.Vector3());
   }
 
-  return { objects, screen: computer.screen, cat };
+  return { objects, screen: computer.screen };
 }
 
 // Marcador "!" flutuante estilo missão
