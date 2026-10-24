@@ -34,7 +34,8 @@ const WHITE = '#f4efe6';
 
 export const COATS = [
   {
-    // calico de olhos amarelos
+    // Kiara: calico de olhos amarelos
+    name: 'Kiara',
     seed: 11,
     eye: '#f2c14e',
     pupil: '#1b1612',
@@ -53,7 +54,8 @@ export const COATS = [
     tail: (i) => (i >= 7 ? '#2b2420' : i % 3 === 0 ? '#2b2420' : i % 3 === 1 ? '#e0893a' : '#c46a24'),
   },
   {
-    // tricolor de olhos azuis
+    // Dominique: tricolor de olhos azuis
+    name: 'Dominique',
     seed: 29,
     eye: '#7cc0f0',
     pupil: '#1b2a3a',
@@ -649,6 +651,7 @@ export function createCats(scene) {
 
   return {
     roots: world.cats.map((c) => c.root),
+    names: COATS.map((c) => c.name),
     cats: world.cats,
     start() {
       world.cats[0].start('desk', 0.4);

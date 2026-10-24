@@ -147,7 +147,9 @@ function setHover(id, x, y) {
   }
   const tip = $('tooltip');
   if (id) {
-    tip.textContent = id.startsWith('cat') ? I18N[state.lang].cat : I18N[state.lang].objects[id];
+    tip.textContent = id.startsWith('cat')
+      ? I18N[state.lang].cat.replace('{name}', cats.names[Number(id.slice(3))])
+      : I18N[state.lang].objects[id];
     tip.style.left = `${x}px`;
     tip.style.top = `${y}px`;
     tip.classList.add('show');
