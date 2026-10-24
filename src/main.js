@@ -167,7 +167,10 @@ canvas.addEventListener('pointerdown', (e) => (downAt = [e.clientX, e.clientY]))
 canvas.addEventListener('pointerup', (e) => {
   if (!downAt || Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]) > 8) return;
   const id = pick(e.clientX, e.clientY);
-  if (id?.startsWith('cat')) cats.pet(Number(id.slice(3)));
+  if (id?.startsWith('cat')) {
+    cats.pet(Number(id.slice(3)));
+    window.gtag?.('event', 'pet_cat', { cat: cats.names[Number(id.slice(3))] });
+  }
   else if (id) open(id);
   else if (state.open) close();
 });
@@ -188,6 +191,7 @@ function open(id) {
   setHover(null);
   focusOn(id);
 
+  window.gtag?.('event', 'open_object', { object: id });
   const first = !state.visited.has(id);
   state.visited.add(id);
   store.set('visited', [...state.visited]);
