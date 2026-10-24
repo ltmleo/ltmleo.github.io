@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Leonardo Montero · @ltmleo</title>
+    <meta
+      name="description"
+      content="Leonardo Montero — Platform Engineering & DevEx. Um escritório 3D voxel com projetos, blog, livros, receitas, viagens e podcast."
+    />
+    <meta property="og:title" content="Leonardo Montero · @ltmleo" />
+    <meta property="og:description" content="Platform Engineering & DevEx — explore meu escritório voxel." />
+    <meta property="og:url" content="https://ltmleo.github.io/" />
+    <meta name="theme-color" content="#1d1a2b" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Cpath fill='%23e4572e' d='M0 0h8v8H0z'/%3E%3Cpath fill='%23fff8e7' d='M1 1h1v5h3v1H1z'/%3E%3Cpath fill='%23ffd23f' d='M5 1h2v2H5z'/%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="locked">
+    <section class="office" id="office" aria-label="Escritório 3D">
+      <canvas id="scene" aria-hidden="true"></canvas>
+
+      <header class="hud-top">
+        <div class="badge">
+          <span class="badge-name">LEONARDO MONTERO</span>
+          <span class="badge-role" data-i18n="role"></span>
+        </div>
+        <div class="hud-right">
+          <span class="progress" id="progress"></span>
+          <button class="lang" id="lang" type="button" aria-label="Mudar idioma / Change language">EN</button>
+        </div>
+      </header>
+
+      <nav class="hotbar" id="hotbar" aria-label="Objetos"></nav>
+      <a class="scroll-cue" href="#story" id="scroll-cue"><span data-i18n-story="cue"></span> <span class="arrow">▼</span></a>
+
+      <aside class="panel" id="panel" role="dialog" aria-modal="false" aria-labelledby="panel-title" hidden>
+        <div class="panel-inner">
+          <button class="close" id="close" type="button">✕</button>
+          <span class="kicker" id="panel-kicker"></span>
+          <h2 id="panel-title"></h2>
+          <div class="panel-body" id="panel-body"></div>
+          <button class="btn story-link" id="story-link" type="button"></button>
+        </div>
+      </aside>
+    </section>
+
+    <main class="story" id="story"></main>
+
+    <div class="tooltip" id="tooltip" role="status" aria-live="polite"></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <section class="intro" id="intro">
+      <div class="intro-card">
+        <p class="intro-handle">@ltmleo</p>
+        <h1>LEONARDO<br />MONTERO</h1>
+        <p class="intro-role" data-i18n="role"></p>
+        <button class="start" id="start" type="button" data-i18n="start"></button>
+        <p class="intro-hint" data-i18n="introHint"></p>
+      </div>
+    </section>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
