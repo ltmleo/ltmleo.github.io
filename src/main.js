@@ -318,7 +318,8 @@ $('lang').addEventListener('click', () => {
 });
 
 let started = false;
-$('start').addEventListener('click', () => {
+function start() {
+  if (started) return;
   started = true;
   document.body.classList.remove('locked');
   $('intro').classList.add('hide');
@@ -326,7 +327,28 @@ $('start').addEventListener('click', () => {
   setTimeout(() => $('intro').remove(), 600);
   if (!renderer) toast(I18N[state.lang].noWebgl, 6000);
   cats?.start();
-});
+}
+$('start').addEventListener('click', start);
+
+// Links diretos: /#computer abre o painel; /#sites ou /#story-* rola até a seção.
+// Pulam a intro, para que os outros sites possam apontar direto para cá.
+function followHash() {
+  const id = decodeURIComponent(location.hash.slice(1));
+  if (!id) return false;
+  if (OBJECT_ORDER.includes(id)) {
+    start();
+    open(id);
+    return true;
+  }
+  const target = id !== 'office' && document.getElementById(id);
+  if (!target || !$('story').contains(target)) return false;
+  start();
+  requestAnimationFrame(() => target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' }));
+  return true;
+}
+// o href="#sites" da intro e do HUD rola sozinho, mas a intro precisa sair antes
+$('intro-sites').addEventListener('click', start);
+addEventListener('hashchange', followHash);
 
 /* ---------------- Loop ---------------- */
 
@@ -370,3 +392,4 @@ if (renderer) {
   document.fonts?.ready.then(refreshCanvases);
   tick();
 }
+followHash();

@@ -1,15 +1,22 @@
 // Conteúdo curado do escritório. Edite aqui para atualizar textos, projetos e links.
 
+import SHARED from './shared/sites.json';
+
+// Lista única dos sites (a mesma usada pela barra <ltm-bar> nos outros sites)
+export const ORIGIN = 'https://ltmleo.github.io';
+const site = (id) => SHARED.sites.find((s) => s.id === id);
+const pageOf = (id) => ORIGIN + site(id).path;
+
 export const LINKS = {
   linkedin: 'https://www.linkedin.com/in/ltmleo/',
   github: 'https://github.com/ltmleo',
   instagram: 'https://instagram.com/ltmleo',
-  blog: 'https://ltmleo.github.io/blog/',
-  blogPosts: 'https://ltmleo.github.io/blog/blog',
-  books: 'https://ltmleo.github.io/blog/learning/livros/',
-  recipes: 'https://ltmleo.github.io/receitas/',
-  travel: 'https://ltmleo.github.io/caraiqbonito/',
-  podcast: 'https://ltmleo.github.io/omeletteaufromage/',
+  blog: pageOf('blog'),
+  blogPosts: `${pageOf('blog')}blog`,
+  books: `${pageOf('blog')}learning/livros/`,
+  recipes: pageOf('receitas'),
+  travel: pageOf('caraiqbonito'),
+  podcast: pageOf('omeletteaufromage'),
 };
 
 // Repositórios com estrelas
@@ -47,36 +54,10 @@ export const REPOS = [
   },
 ];
 
-// Projetos com página publicada
-export const SITES = [
-  {
-    name: 'Carai Que Bonito!',
-    repo: 'https://github.com/ltmleo/caraiqbonito',
-    page: LINKS.travel,
-    desc: { pt: 'Curiosidades e dicas de viagem.', en: 'Travel trivia and tips.' },
-  },
-  {
-    name: 'Receitas de família',
-    repo: 'https://github.com/ltmleo/receitas',
-    page: LINKS.recipes,
-    desc: {
-      pt: 'Cadernos de receitas da família digitalizados com IA.',
-      en: 'Family recipe notebooks digitized with AI.',
-    },
-  },
-  {
-    name: 'Omelette Au Fromage',
-    repo: 'https://github.com/ltmleo/omeletteaufromage',
-    page: LINKS.podcast,
-    desc: { pt: 'Podcast de frases em outros idiomas.', en: 'Podcast of phrases in other languages.' },
-  },
-  {
-    name: 'Blog @ltmleo',
-    repo: 'https://github.com/ltmleo/blog',
-    page: LINKS.blog,
-    desc: { pt: 'Registros pessoais e conhecimento compartilhado.', en: 'Personal notes and shared knowledge.' },
-  },
-];
+// Projetos com página publicada (todos os sites, menos a própria home)
+export const SITES = SHARED.sites
+  .filter((s) => s.id !== 'home')
+  .map((s) => ({ id: s.id, icon: s.icon, name: s.name, repo: s.repo, page: ORIGIN + s.path, desc: s.desc }));
 
 export const BOOKS = [
   { title: 'Arriscando a própria pele', author: 'Nassim Nicholas Taleb', slug: 'arriscando-a-propria-pele' },
@@ -116,6 +97,8 @@ export const I18N = {
     role: 'Platform Engineering · DevEx',
     start: '▶ ENTRAR',
     introHint: 'Clique nos objetos do escritório para explorar.',
+    introSites: 'ou vá direto para todos os sites ↓',
+    sitesHud: 'SITES',
     hint: 'Clique nos objetos · teclas 1–7',
     explored: 'Explorado',
     achievement: '🏆 Conquista desbloqueada: Explorador do escritório!',
@@ -196,6 +179,8 @@ export const I18N = {
     role: 'Platform Engineering · DevEx',
     start: '▶ START',
     introHint: 'Click the objects in the office to explore.',
+    introSites: 'or jump straight to all sites ↓',
+    sitesHud: 'SITES',
     hint: 'Click objects · keys 1–7',
     explored: 'Explored',
     achievement: '🏆 Achievement unlocked: Office explorer!',

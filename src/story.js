@@ -1,15 +1,20 @@
-import { LINKS, REPOS, BOOKS, POSTS } from './content.js';
+import { LINKS, REPOS, BOOKS, POSTS, SITES } from './content.js';
+import { ext } from './link.js';
 
 // A história contada abaixo do escritório: um capítulo por objeto.
 
 const img = (file) => `${import.meta.env.BASE_URL}img/${file}`;
-const ext = (href, label, cls = 'btn') => `<a class="${cls}" href="${href}" target="_blank" rel="noopener">${label} ↗</a>`;
-
 const TEXT = {
   pt: {
     cue: 'Clique nos objetos · role para a história',
     back: '↑ Voltar ao escritório',
     readStory: 'Ler a história ↓',
+    sites: {
+      kicker: 'Mapa do site',
+      title: 'Todos os meus sites',
+      lead: 'Atalho direto, sem passar pelo escritório. Em qualquer um deles, a barra no topo traz você de volta.',
+      code: 'código',
+    },
     prologue: {
       kicker: 'Prólogo',
       title: 'Oi, eu sou o Leo 👋',
@@ -104,6 +109,12 @@ const TEXT = {
     cue: 'Click objects · scroll for the story',
     back: '↑ Back to the office',
     readStory: 'Read the story ↓',
+    sites: {
+      kicker: 'Site map',
+      title: 'All my sites',
+      lead: 'A shortcut that skips the office. On any of them, the bar at the top brings you back.',
+      code: 'code',
+    },
     prologue: {
       kicker: 'Prologue',
       title: 'Hi, I’m Leo 👋',
@@ -231,6 +242,30 @@ export function storyText(lang) {
   return TEXT[lang];
 }
 
+function directory(T, lang) {
+  return `
+    <section class="chapter theme-paper directory" id="sites" aria-labelledby="h-sites">
+      <div class="directory-inner">
+        <span class="chapter-kicker">${T.sites.kicker}</span>
+        <h2 id="h-sites">${T.sites.title}</h2>
+        <p>${T.sites.lead}</p>
+        <ul class="site-grid">
+          ${SITES.map(
+            (s) => `<li>
+              <a class="site-card" href="${s.page}">
+                <span class="site-icon" aria-hidden="true">${s.icon}</span>
+                <b>${s.name}</b>
+                <span>${s.desc[lang]}</span>
+                <span class="site-url">${s.page.replace('https://', '')}</span>
+              </a>
+              ${s.repo ? `<a class="site-repo" href="${s.repo}" target="_blank" rel="noopener">${T.sites.code} ↗</a>` : ''}
+            </li>`,
+          ).join('')}
+        </ul>
+      </div>
+    </section>`;
+}
+
 export function renderStory(lang) {
   const T = TEXT[lang];
 
@@ -341,9 +376,10 @@ export function renderStory(lang) {
       ext(LINKS.blog, 'Blog'),
   );
 
-  return `${prologue}${about}${computer}${map}${shelf}${recipes}${podcast}${blog}${photo}
+  return `${directory(T, lang)}${prologue}${about}${computer}${map}${shelf}${recipes}${podcast}${blog}${photo}
     <footer class="site-footer">
       <a href="#office" class="back">${T.back}</a>
+      <nav class="footer-sites" aria-label="${T.sites.title}">${SITES.map((s) => `<a href="${s.page}">${s.name}</a>`).join('')}</nav>
       <p>© ${new Date().getFullYear()} Leonardo Montero · @ltmleo</p>
     </footer>`;
 }

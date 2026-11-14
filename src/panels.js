@@ -1,7 +1,5 @@
 import { I18N, LINKS, REPOS, SITES, BOOKS, RECIPES, POSTS } from './content.js';
-
-const ext = (href, label, cls = 'btn') =>
-  `<a class="${cls}" href="${href}" target="_blank" rel="noopener">${label} ↗</a>`;
+import { ext } from './link.js';
 
 const renderers = {
   about(t, lang) {
@@ -47,8 +45,8 @@ const renderers = {
       <ul class="repos">
         ${SITES.map(
           (s) => `<li>
-            <a href="${s.page}" target="_blank" rel="noopener">
-              <span class="repo-head"><b>${s.name}</b><span class="meta">${s.page.replace('https://', '')}</span></span>
+            <a href="${s.page}">
+              <span class="repo-head"><b>${s.icon} ${s.name}</b><span class="meta">${s.page.replace('https://', '')}</span></span>
               <span>${s.desc[lang]}</span>
             </a></li>`,
         ).join('')}

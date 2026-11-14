@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "sites": [
+    {
+      "id": "home",
+      "path": "/",
+      "name": "@ltmleo",
+      "icon": "🏠",
+      "desc": { "pt": "Escritório 3D: quem sou eu e tudo o que eu faço", "en": "3D office: who I am and everything I make" }
+    },
+    {
+      "id": "blog",
+      "path": "/blog/",
+      "name": "Blog",
+      "icon": "📝",
+      "repo": "https://github.com/ltmleo/blog",
+      "desc": { "pt": "Posts, notas de estudo e de leitura", "en": "Posts, study and reading notes" }
+    },
+    {
+      "id": "receitas",
+      "path": "/receitas/",
+      "name": "Receitas de família",
+      "icon": "🍰",
+      "repo": "https://github.com/ltmleo/receitas",
+      "desc": { "pt": "Cadernos da família digitalizados com IA", "en": "Family notebooks digitized with AI" }
+    },
+    {
+      "id": "caraiqbonito",
+      "path": "/caraiqbonito/",
+      "name": "Carai Que Bonito!",
+      "icon": "🌍",
+      "repo": "https://github.com/ltmleo/caraiqbonito",
+      "desc": { "pt": "Catálogo de viagens, curiosidades e dicas", "en": "Travel catalog, trivia and tips" }
+    },
+    {
+      "id": "omeletteaufromage",
+      "path": "/omeletteaufromage/",
+      "name": "Omelette Au Fromage",
+      "icon": "🎧",
+      "repo": "https://github.com/ltmleo/omeletteaufromage",
+      "desc": { "pt": "Podcast de frases em outros idiomas", "en": "Podcast of phrases in other languages" }
+    }
+  ]
+}
