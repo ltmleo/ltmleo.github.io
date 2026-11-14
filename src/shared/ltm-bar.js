@@ -10,6 +10,7 @@
  *
  * Contrato v1 (não quebrar; mudanças incompatíveis viram ltm-bar.v2.js):
  *   - atributo `site`: id do site atual em sites.json (opcional; senão detecta pelo caminho)
+ *   - atributo `theme`: "light" ou "dark" fixo (opcional; senão segue <html data-theme> ou o sistema)
  *   - sem o elemento na página, o script insere um no início do <body>
  */
 (() => {
@@ -122,8 +123,9 @@
       this.#watchTheme();
     }
 
-    // Docusaurus usa <html data-theme>; nos outros sites segue o sistema
+    // Tema fixo pelo atributo; senão Docusaurus (<html data-theme>) ou o sistema
     #watchTheme() {
+      if (this.hasAttribute('theme')) return;
       const html = document.documentElement;
       const mq = matchMedia('(prefers-color-scheme: dark)');
       const apply = () => this.setAttribute('theme', (html.dataset.theme || (mq.matches ? 'dark' : 'light')) === 'dark' ? 'dark' : 'light');

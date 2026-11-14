@@ -32,6 +32,7 @@ Cada site carrega a barra com:
 <script src="https://ltmleo.github.io/shared/ltm-bar.v1.js" defer></script>
 ```
 
+Atributos opcionais: `site` (id em `sites.json`; senão detecta pelo caminho) e `theme` (`light`/`dark` fixo; senão segue o `data-theme` do Docusaurus ou o sistema).
 O conteúdo do elemento é o fallback sem JavaScript e reserva a altura (sem salto de layout).
 Para incluir um site, edite só o `sites.json`. Mudanças incompatíveis no componente viram `ltm-bar.v2.js`.
 
