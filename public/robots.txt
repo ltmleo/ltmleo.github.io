@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ltmleo.github.io/blog/sitemap.xml
+Sitemap: https://ltmleo.github.io/receitas/sitemap.xml
+Sitemap: https://ltmleo.github.io/caraiqbonito/sitemap.xml

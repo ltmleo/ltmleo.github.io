@@ -526,6 +526,21 @@ a {
   opacity: 0.7;
 }
 
+.intro-sites {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--gold);
+}
+
+.hud-sites {
+  font-family: var(--pixel);
+  font-size: 9px;
+  color: var(--paper);
+  text-decoration: none;
+  text-shadow: 2px 2px 0 #000;
+}
+
 /* ---------- Mobile ---------- */
 
 @media (max-width: 720px) {
