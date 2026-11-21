@@ -36,6 +36,8 @@ Atributos opcionais: `site` (id em `sites.json`; senão detecta pelo caminho) e 
 O conteúdo do elemento é o fallback sem JavaScript e reserva a altura (sem salto de layout).
 Para incluir um site, edite só o `sites.json`. Mudanças incompatíveis no componente viram `ltm-bar.v2.js`.
 
+Para conectar um site novo (barra + Google Analytics + verificação), use a skill do Claude Code em `.claude/skills/ltm-novo-site/`.
+
 Links diretos para a home: `/#sites` (lista de sites) e `/#about`, `/#computer`, `/#map`… (abrem o painel).
 
 ## Deploy
