@@ -39,6 +39,14 @@
       "icon": "🎧",
       "repo": "https://github.com/ltmleo/omeletteaufromage",
       "desc": { "pt": "Podcast de frases em outros idiomas", "en": "Podcast of phrases in other languages" }
+    },
+    {
+      "id": "disk-discovery",
+      "path": "/disk-discovery/",
+      "name": "Disk Discovery",
+      "icon": "💿",
+      "repo": "https://github.com/ltmleo/disk-discovery",
+      "desc": { "pt": "Abra pacotes e descubra os 500 maiores discos", "en": "Open packs to discover the 500 greatest albums" }
     }
   ]
 }
