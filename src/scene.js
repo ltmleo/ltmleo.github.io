@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { REPOS, SITES } from './content.js';
 
 // Tudo é montado com caixas em coordenadas de "canto mínimo": box(parent, [x,y,z], [w,h,d], cor).
 // A sala ocupa x,z ∈ [-12, 12], chão em y = 0, paredes ao fundo (z = -12) e à esquerda (x = -12).
@@ -211,23 +212,21 @@ function buildComputer() {
       ctx.fillRect(0, 0, w, h);
       ctx.font = '22px "IBM Plex Mono", monospace';
       const green = '#5dff9c';
+      // gerado de REPOS e da lista única de sites: a tela nunca fica desatualizada
+      const row = (name, stars, kind) => [`${name.padEnd(18)} ${stars.padEnd(5)} ${kind}`, '#e8ffe9'];
       const lines = [
         ['leo@office:~$ kubectl get projects', green],
-        ['', green],
-        ['NAME             STARS  LANG', '#a6e3b8'],
-        ['k8s-clean-yaml   ★ 4    Python', '#e8ffe9'],
-        ['blog             ★ 1    TypeScript', '#e8ffe9'],
-        ['fullcyle         ★ 1    Go', '#e8ffe9'],
-        ['caraiqbonito     ●      pages', '#e8ffe9'],
-        ['receitas         ●      pages', '#e8ffe9'],
-        ['omeletteaufromage ●     pages', '#e8ffe9'],
-        ['', green],
+        ['NAME               STARS KIND', '#a6e3b8'],
+        ...REPOS.map((r) => row(r.name, `★ ${r.stars}`, r.lang)),
+        ...SITES.map((x) => row(x.id, '●', 'pages')),
         [lang === 'pt' ? '# clique para abrir' : '# click to open', '#7fa88c'],
         ['leo@office:~$ ' + (cursor ? '█' : ''), green],
       ];
+      const step = Math.min(26, (h - 30) / lines.length);
+      ctx.font = `${Math.min(22, Math.floor(step * 0.85))}px "IBM Plex Mono", monospace`;
       lines.forEach(([text, color], i) => {
         ctx.fillStyle = color;
-        ctx.fillText(text, 18, 34 + i * 26);
+        ctx.fillText(text, 18, 30 + i * step);
       });
       // scanlines
       ctx.fillStyle = 'rgba(0,0,0,0.18)';
@@ -472,6 +471,105 @@ function buildCorkboard() {
   return { group: g };
 }
 
+// Vitrola (Disk Discovery): móvel de madeira, toca-discos com o prato girando e caixote de LPs
+function buildRecordPlayer() {
+  const g = new THREE.Group();
+  const wood = '#8a5a2e';
+  const dark = '#5e381c';
+  for (const [x, z] of [[0.1, 0.1], [3.4, 0.1], [0.1, 1.8], [3.4, 1.8]]) box(g, [x, 0, z], [0.3, 0.5, 0.3], dark);
+  box(g, [0, 0.5, 0], [3.8, 2.4, 2.2], wood);
+  box(g, [0.2, 0.75, 2.2], [1.6, 1.9, 0.06], '#a46d3d', { shadow: false });
+  box(g, [2.0, 0.75, 2.2], [1.6, 1.9, 0.06], '#a46d3d', { shadow: false });
+  box(g, [1.6, 1.6, 2.26], [0.15, 0.3, 0.06], '#d9c27a', { shadow: false });
+  box(g, [2.05, 1.6, 2.26], [0.15, 0.3, 0.06], '#d9c27a', { shadow: false });
+
+  // toca-discos
+  box(g, [0.3, 2.9, 0.25], [3.2, 0.45, 1.75], '#2b2b33');
+  const platter = new THREE.Group();
+  platter.position.set(1.45, 3.35, 1.12);
+  box(platter, [-0.78, 0, -0.78], [1.56, 0.1, 1.56], '#151518');
+  box(platter, [-0.6, 0.1, -0.6], [1.2, 0.02, 1.2], '#26262b', { shadow: false }); // sulcos
+  box(platter, [-0.24, 0.12, -0.24], [0.48, 0.04, 0.48], '#e63946', { shadow: false }); // selo
+  box(platter, [0.36, 0.1, -0.08], [0.32, 0.04, 0.16], '#f2c14e', { shadow: false }); // marca para ver o giro
+  g.add(platter);
+  // braço
+  box(g, [2.65, 3.35, 0.45], [0.3, 0.35, 0.3], '#c9c9c9');
+  box(g, [2.74, 3.62, 0.6], [0.12, 0.1, 1.25], '#e0e0e0', { shadow: false });
+  box(g, [2.6, 3.55, 1.8], [0.3, 0.14, 0.22], '#e0e0e0', { shadow: false });
+  // capa do pacote encostada no toca-discos
+  const pack = box(g, [3.15, 3.35, 0.35], [0.14, 1.7, 1.5], '#e63946');
+  pack.rotation.z = -0.12;
+  box(g, [3.3, 4.2, 0.55], [0.03, 0.4, 1.1], '#f2c14e', { shadow: false });
+  box(g, [3.3, 3.65, 0.55], [0.03, 0.3, 1.1], '#2f6fd0', { shadow: false });
+
+  // caixote de LPs no chão
+  box(g, [0.2, 0, 2.6], [2, 1.2, 1.4], '#c06a3e');
+  ['#2f6fd0', '#f2c14e', '#e8e1cf', '#3f8f5a', '#e63946', '#1c1a17'].forEach((c, i) =>
+    box(g, [0.35 + i * 0.3, 0.5, 2.7], [0.1, 1.15, 1.2], c, { shadow: false }),
+  );
+
+  g.position.set(4.2, 0, -7.6);
+  return { group: g, spinners: [platter] };
+}
+
+// Videogame (Rodada): TV de tubo com a grade do joguinho do dia, console no rack e controle no chão
+function buildGameConsole() {
+  const g = new THREE.Group();
+  // rack
+  box(g, [0, 0, 0], [2.6, 1.8, 3.2], '#6b4423');
+  box(g, [2.55, 0.25, 0.3], [0.08, 1.3, 2.6], '#3d2512', { shadow: false });
+  box(g, [2.1, 0.3, 0.6], [0.55, 0.45, 2], '#d9d2c3');
+  box(g, [2.66, 0.45, 0.8], [0.04, 0.12, 0.5], '#2b2b33', { shadow: false });
+  box(g, [2.66, 0.45, 2.1], [0.05, 0.12, 0.12], '#e63946', { shadow: false });
+  // TV de tubo
+  box(g, [0.1, 1.8, 0.2], [2.4, 2.5, 2.8], '#cfc6b4');
+  box(g, [2.45, 1.95, 0.3], [0.1, 2.2, 2.2], '#2b2b33', { shadow: false });
+  box(g, [2.5, 2.2, 2.6], [0.1, 0.3, 0.3], '#8a8a8a', { shadow: false });
+  box(g, [2.5, 2.7, 2.6], [0.1, 0.3, 0.3], '#8a8a8a', { shadow: false });
+  // antena
+  const a1 = box(g, [1.2, 4.3, 1.3], [0.08, 1.4, 0.08], '#555');
+  a1.rotation.x = 0.45;
+  const a2 = box(g, [1.2, 4.3, 1.5], [0.08, 1.4, 0.08], '#555');
+  a2.rotation.x = -0.45;
+  canvasPlane(
+    g,
+    (ctx, w, h) => {
+      ctx.fillStyle = '#1e2140';
+      ctx.fillRect(0, 0, w, h);
+      const rows = [
+        ['#3a3a3c', '#c9b458', '#3a3a3c', '#3a3a3c', '#6aaa64'],
+        ['#6aaa64', '#c9b458', '#3a3a3c', '#6aaa64', '#6aaa64'],
+        ['#6aaa64', '#6aaa64', '#6aaa64', '#6aaa64', '#6aaa64'],
+      ];
+      const t = 20;
+      const x0 = (w - 5 * t - 4 * 4) / 2;
+      rows.forEach((r, y) => r.forEach((c, x) => {
+        ctx.fillStyle = c;
+        ctx.fillRect(x0 + x * (t + 4), 34 + y * (t + 4), t, t);
+      }));
+      ctx.fillStyle = '#eef0ff';
+      ctx.font = '12px "Press Start 2P", monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('RODADA', w / 2, 22);
+      ctx.fillStyle = 'rgba(0,0,0,0.2)';
+      for (let y = 0; y < h; y += 4) ctx.fillRect(0, y, w, 2);
+    },
+    [160, 120],
+    [2, 1.6],
+    [2.56, 3.05, 1.4],
+    Math.PI / 2,
+  );
+  // controle
+  box(g, [3.2, 0, 1.1], [0.7, 0.22, 1.3], '#3a3a44');
+  box(g, [3.35, 0.22, 1.25], [0.35, 0.06, 0.35], '#2b2b33', { shadow: false });
+  box(g, [3.4, 0.22, 1.9], [0.18, 0.06, 0.18], '#e63946', { shadow: false });
+  box(g, [3.6, 0.22, 2.1], [0.18, 0.06, 0.18], '#6aaa64', { shadow: false });
+  box(g, [2.6, 0.05, 1.7], [0.6, 0.05, 0.08], '#222', { shadow: false });
+
+  g.position.set(-10.2, 0, 3.6);
+  return { group: g };
+}
+
 /* ---------------- Montagem ---------------- */
 
 export function buildScene(scene) {
@@ -491,6 +589,8 @@ export function buildScene(scene) {
     podcast: buildWalkman(),
     blog: buildCorkboard(),
     photo: buildPhoto(),
+    disk: buildRecordPlayer(),
+    rodada: buildGameConsole(),
   };
 
   for (const [id, o] of Object.entries(objects)) {
@@ -502,7 +602,7 @@ export function buildScene(scene) {
     o.size = o.box.getSize(new THREE.Vector3());
   }
 
-  return { objects, screen: computer.screen };
+  return { objects, screen: computer.screen, spinners: objects.disk.spinners };
 }
 
 // Marcador "!" flutuante estilo missão

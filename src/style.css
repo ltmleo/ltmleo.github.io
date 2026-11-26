@@ -304,6 +304,30 @@ a {
   border-bottom: 4px dotted var(--paper-2);
 }
 
+/* blocos em destaque dentro de um painel (ex.: receitas e skoob-recomenda na estante) */
+.feature {
+  margin: 18px 0 6px;
+  padding: 4px 14px 14px;
+  background: #fff;
+  box-shadow: 0 0 0 3px var(--ink), 4px 4px 0 3px var(--ink);
+}
+
+.feature h3 {
+  margin-top: 14px;
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.feature-recipes {
+  background: conic-gradient(rgba(214, 69, 69, 0.08) 25%, transparent 0 50%, rgba(214, 69, 69, 0.08) 0 75%, transparent 0) 0 0 /
+      24px 24px,
+    #fff8e7;
+}
+
+.feature-skoob {
+  background: #eef4ff;
+}
+
 .panel p {
   font-size: 14px;
   line-height: 1.65;
@@ -554,8 +578,8 @@ a {
     display: none;
   }
   .slot {
-    width: 40px;
-    height: 40px;
+    width: min(40px, calc((100vw - 76px) / 9));
+    height: min(40px, calc((100vw - 76px) / 9));
     font-size: 18px;
   }
   .hotbar {

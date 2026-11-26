@@ -369,6 +369,7 @@ function tick() {
   cats?.update(dt, time);
 
   if (!reducedMotion) {
+    world.spinners?.forEach((m) => (m.rotation.y -= dt * 3.5)); // ~33 rpm
     Object.values(markers).forEach((m, i) => {
       m.position.y = m.userData.baseY + Math.sin(time * 3 + i) * 0.25;
       m.rotation.y = time * 1.5;

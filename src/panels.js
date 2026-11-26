@@ -1,4 +1,4 @@
-import { I18N, LINKS, REPOS, SITES, BOOKS, RECIPES, POSTS } from './content.js';
+import { I18N, LINKS, REPOS, SITES, SKOOB, BOOKS, RECIPES, POSTS } from './content.js';
 import { ext } from './link.js';
 
 const renderers = {
@@ -35,7 +35,7 @@ const renderers = {
         ${REPOS.map(
           (r) => `<li>
             <a href="${r.url}" target="_blank" rel="noopener">
-              <span class="repo-head"><b>${r.name}</b><span class="stars">★ ${r.stars}</span></span>
+              <span class="repo-head"><b>${r.name}</b>${r.stars ? `<span class="stars">★ ${r.stars}</span>` : ''}</span>
               <span>${r.desc[lang]}</span>
               <span class="meta">${r.lang}</span>
             </a></li>`,
@@ -62,23 +62,48 @@ const renderers = {
       <div class="actions">${ext(LINKS.travel, m.cta, 'btn primary')}</div>`;
   },
 
+  // Receitas e skoob-recomenda em destaque; as notas de leitura vêm depois
   shelf(t, lang) {
     const s = t.shelf;
     return `
       <p class="lead">${s.lead}</p>
+      <div class="feature feature-recipes">
+        <h3>🍰 ${s.recipes}</h3>
+        <p>${s.recipesLead}</p>
+        <ul class="plain">
+          ${RECIPES.map((r) => `<li>${r.ready ? '📖' : '⏳'} ${r[lang]}${r.ready ? '' : ` <em>(${t.soon})</em>`}</li>`).join('')}
+        </ul>
+        <div class="actions">${ext(LINKS.recipes, s.allRecipes, 'btn primary')}</div>
+      </div>
+      <div class="feature feature-skoob">
+        <h3>📚 ${s.skoob}</h3>
+        <p>${s.skoobLead}</p>
+        <ul class="tags">${s.skoobTags.map((x) => `<li>${x}</li>`).join('')}</ul>
+        <div class="actions">${ext(SKOOB.url, s.skoobCta, 'btn primary')}</div>
+      </div>
       <h3>${s.books}</h3>
       <ul class="books">
         ${BOOKS.map(
           (b) => `<li><a href="${LINKS.books}${b.slug}" target="_blank" rel="noopener"><b>${b.title}</b><span>${b.author}</span></a></li>`,
         ).join('')}
       </ul>
-      <div class="actions">${ext(LINKS.books, s.allBooks)}</div>
-      <h3>${s.recipes}</h3>
-      <p>${s.recipesLead}</p>
-      <ul class="plain">
-        ${RECIPES.map((r) => `<li>🍰 ${r[lang]}${r.ready ? '' : ` <em>(${t.soon})</em>`}</li>`).join('')}
-      </ul>
-      <div class="actions">${ext(LINKS.recipes, s.allRecipes, 'btn primary')}</div>`;
+      <div class="actions">${ext(LINKS.books, s.allBooks)}</div>`;
+  },
+
+  disk(t) {
+    const d = t.disk;
+    return `
+      <p class="lead">${d.lead}</p>
+      <p>${d.body}</p>
+      <div class="actions">${ext(LINKS.disk, d.cta, 'btn primary')}</div>`;
+  },
+
+  rodada(t) {
+    const r = t.rodada;
+    return `
+      <p class="lead">${r.lead}</p>
+      <p>${r.body}</p>
+      <div class="actions">${ext(LINKS.rodada, r.cta, 'btn primary')}</div>`;
   },
 
   podcast(t) {
