@@ -47,6 +47,14 @@
       "icon": "💿",
       "repo": "https://github.com/ltmleo/disk-discovery",
       "desc": { "pt": "Abra pacotes e descubra os 500 maiores discos", "en": "Open packs to discover the 500 greatest albums" }
+    },
+    {
+      "id": "rodada",
+      "path": "/rodada/",
+      "name": "Rodada",
+      "icon": "🎮",
+      "repo": "https://github.com/ltmleo/rodada",
+      "desc": { "pt": "Sua rodada diária de jogos: Termo, Wordle e cia.", "en": "Your daily round of games: Wordle and friends" }
     }
   ]
 }

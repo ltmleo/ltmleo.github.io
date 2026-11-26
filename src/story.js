@@ -1,4 +1,4 @@
-import { LINKS, REPOS, BOOKS, POSTS, SITES } from './content.js';
+import { LINKS, REPOS, BOOKS, POSTS, SITES, SKOOB } from './content.js';
 import { ext } from './link.js';
 
 // A história contada abaixo do escritório: um capítulo por objeto.
@@ -20,7 +20,7 @@ const TEXT = {
       title: 'Oi, eu sou o Leo 👋',
       p: [
         'Engenheiro de Telecomunicações pela <b>UNESP</b>, especialista em Data Science & Analytics pela <b>USP</b> e, no dia a dia, líder técnico de <b>Platform Engineering</b> e <b>Developer Experience</b> na Vivo.',
-        'Este escritório é o meu cantinho. Cada objeto guarda um pedaço do que eu construo, leio, cozinho, viajo e escuto. Role para baixo que eu conto a história de cada um.',
+        'Este escritório é o meu cantinho. Cada objeto guarda um pedaço do que eu construo, leio, cozinho, viajo, escuto e jogo. Role para baixo que eu conto a história de cada um.',
       ],
     },
     about: {
@@ -41,8 +41,8 @@ const TEXT = {
       kicker: 'Capítulo 2 · O computador',
       title: 'Código aberto',
       p: [
-        'Sou entusiasta de tecnologias open source. Alguns dos meus repositórios ganharam estrelas pelo caminho.',
-        'O mais estrelado é o <b>k8s-clean-yaml</b>: ele remove os campos inúteis de manifests Kubernetes exportados do cluster.',
+        'Sou entusiasta de tecnologias open source, e boa parte do que publico nasce do dia a dia de plataforma.',
+        'O <b>k8s-clean-yaml</b> remove os campos inúteis de manifests Kubernetes exportados do cluster. O <b>aks-helper</b> configura o kubectl para clusters AKS espalhados por várias assinaturas do Azure.',
       ],
       all: 'Ver todos no GitHub',
     },
@@ -57,16 +57,17 @@ const TEXT = {
       cta: 'Explorar destinos',
     },
     shelf: {
-      kicker: 'Capítulo 4 · A estante',
-      title: 'Sistemas, antifragilidade e boas histórias',
+      kicker: 'Capítulo 5 · A estante',
+      title: 'Livros, e um recomendador para o próximo',
       p: [
         'Sou estudante de sistemas complexos e do conceito de antifragilidade, e boa parte disso vem dos livros. Cada leitura vira uma nota no blog.',
+        'Para escolher o próximo, criei o <b>skoob-recomenda</b>: ele lê a minha estante do Skoob, encontra leitores com gosto parecido e sugere o que ler a seguir, sempre com o motivo (“porque você gostou de <i>1984</i>”). Roda no computador, sem servidor nem conta nova.',
       ],
-      post: 'Ler “Além da resiliência”',
+      skoob: 'Conhecer o skoob-recomenda',
       cta: 'Todas as notas de leitura',
     },
     recipes: {
-      kicker: 'Capítulo 5 · Os fichários',
+      kicker: 'Capítulo 4 · Os fichários',
       title: 'Receitas de família',
       p: [
         'Cadernos de receitas de família guardam muito mais do que ingredientes.',
@@ -86,8 +87,27 @@ const TEXT = {
       cta: 'Ouvir o podcast',
       post: 'Como ele foi feito',
     },
+    disk: {
+      kicker: 'Capítulo 7 · A vitrola',
+      title: 'Disk Discovery',
+      p: [
+        'E se a lista dos 500 maiores álbuns da Rolling Stone fosse um álbum de figurinhas? No <b>Disk Discovery</b>, você abre pacotes e cada disco é uma carta.',
+        'A raridade vem só da posição no ranking, então as chances são reais. Arrastar a faixa do pacote é um scratch ao vivo, e a revelação vem com suspense e fanfarra, tudo sintetizado no navegador.',
+      ],
+      rarity: [['★★★★★', 'Lendário', '1–5'], ['★★★★', 'Épico', '6–25'], ['★★★', 'Raro', '26–100'], ['★★', 'Incomum', '101–200'], ['★', 'Comum', '201–500']],
+      cta: 'Abrir um pacote',
+    },
+    rodada: {
+      kicker: 'Capítulo 8 · O videogame',
+      title: 'Rodada',
+      p: [
+        'Termo, Dueto, Wordle, Conexo, Flagle… toda manhã tem uma rodada de joguinhos. O <b>Rodada</b> junta todos numa lista do dia.',
+        'Cole o resultado do botão “Compartilhar” e ele reconhece o jogo, o número do dia e a pontuação; acompanha sequências e histórico e monta um resumo para compartilhar. Sem login: tudo fica no seu aparelho, e funciona offline.',
+      ],
+      cta: 'Jogar a rodada de hoje',
+    },
     blog: {
-      kicker: 'Capítulo 7 · O mural',
+      kicker: 'Capítulo 9 · O mural',
       title: 'O blog',
       p: [
         'Registros pessoais para consultas futuras, conhecimento compartilhado ao longo da jornada e um pouco de tudo.',
@@ -120,7 +140,7 @@ const TEXT = {
       title: 'Hi, I’m Leo 👋',
       p: [
         'Telecommunications Engineer from <b>UNESP</b>, specialized in Data Science & Analytics at <b>USP</b>, and day to day a technical leader in <b>Platform Engineering</b> and <b>Developer Experience</b> at Vivo.',
-        'This office is my little corner. Each object holds a piece of what I build, read, cook, travel and listen to. Scroll down and I’ll tell you the story behind each one.',
+        'This office is my little corner. Each object holds a piece of what I build, read, cook, travel, listen to and play. Scroll down and I’ll tell you the story behind each one.',
       ],
     },
     about: {
@@ -141,8 +161,8 @@ const TEXT = {
       kicker: 'Chapter 2 · The computer',
       title: 'Open source',
       p: [
-        'I’m an open-source enthusiast. Some of my repositories picked up stars along the way.',
-        'The most starred is <b>k8s-clean-yaml</b>: it strips useless fields from Kubernetes manifests exported from a cluster.',
+        'I’m an open-source enthusiast, and much of what I publish comes from day-to-day platform work.',
+        '<b>k8s-clean-yaml</b> strips useless fields from Kubernetes manifests exported from a cluster. <b>aks-helper</b> sets up kubectl for AKS clusters spread across several Azure subscriptions.',
       ],
       all: 'See everything on GitHub',
     },
@@ -157,16 +177,17 @@ const TEXT = {
       cta: 'Explore destinations',
     },
     shelf: {
-      kicker: 'Chapter 4 · The bookshelf',
-      title: 'Systems, antifragility and good stories',
+      kicker: 'Chapter 5 · The bookshelf',
+      title: 'Books, and a recommender for the next one',
       p: [
         'I study complex systems and the idea of antifragility, and a lot of it comes from books. Every read becomes a note on the blog (in Portuguese).',
+        'To pick the next one, I built <b>skoob-recomenda</b>: it reads my Skoob bookshelf, finds readers with similar taste and suggests what to read next, always with the reason (“because you liked <i>1984</i>”). It runs on your computer, with no server or new account.',
       ],
-      post: 'Read “Beyond resilience”',
+      skoob: 'Meet skoob-recomenda',
       cta: 'All reading notes',
     },
     recipes: {
-      kicker: 'Chapter 5 · The binders',
+      kicker: 'Chapter 4 · The binders',
       title: 'Family recipes',
       p: [
         'Family recipe notebooks hold much more than ingredients.',
@@ -186,8 +207,27 @@ const TEXT = {
       cta: 'Listen to the podcast',
       post: 'How it was made',
     },
+    disk: {
+      kicker: 'Chapter 7 · The record player',
+      title: 'Disk Discovery',
+      p: [
+        'What if Rolling Stone’s 500 greatest albums were a sticker album? In <b>Disk Discovery</b> you open packs and every album is a card.',
+        'Rarity comes only from the ranking, so the odds are real. Dragging the pack’s strip is a live scratch, and the reveal comes with suspense and a fanfare, all synthesized in the browser (in Portuguese).',
+      ],
+      rarity: [['★★★★★', 'Legendary', '1–5'], ['★★★★', 'Epic', '6–25'], ['★★★', 'Rare', '26–100'], ['★★', 'Uncommon', '101–200'], ['★', 'Common', '201–500']],
+      cta: 'Open a pack',
+    },
+    rodada: {
+      kicker: 'Chapter 8 · The game console',
+      title: 'Rodada',
+      p: [
+        'Wordle, Termo, Conexo, Flagle… every morning there’s a round of little puzzles. <b>Rodada</b> puts them all in one daily list.',
+        'Paste the result from the “Share” button and it recognizes the game, the day number and the score; it tracks streaks and history and builds a summary to share. No login: everything stays on your device, and it works offline (in Portuguese).',
+      ],
+      cta: 'Play today’s round',
+    },
     blog: {
-      kicker: 'Chapter 7 · The corkboard',
+      kicker: 'Chapter 9 · The corkboard',
       title: 'The blog',
       p: [
         'Personal notes for future reference, knowledge shared along the way, and a bit of everything (in Portuguese).',
@@ -290,13 +330,13 @@ export function renderStory(lang) {
     'computer',
     'terminal',
     T.computer,
-    `<div class="og-stack">${REPOS.map(
+    `<div class="repo-stack">${REPOS.map(
       (r) =>
-        `<a href="${r.url}" target="_blank" rel="noopener" class="og">${frame(
-          img(`og-${r.name}.webp`),
-          `${r.name} — GitHub`,
-          `★ ${r.stars} · ${r.lang}`,
-        )}</a>`,
+        `<a href="${r.url}" target="_blank" rel="noopener" class="repo-card">
+          <span class="repo-path">ltmleo / <b>${r.name}</b></span>
+          <span class="repo-desc">${r.desc[lang]}</span>
+          <span class="repo-meta"><span class="lang-dot"></span>${r.lang}${r.stars ? ` · ★ ${r.stars}` : ''}</span>
+        </a>`,
     ).join('')}</div>`,
     '',
     ext(LINKS.github, T.computer.all, 'btn primary'),
@@ -329,7 +369,7 @@ export function renderStory(lang) {
     `<ul class="book-list">${BOOKS.filter((b) => b.slug !== 'outros')
       .map((b) => `<li><b>${b.title}</b> — ${b.author}</li>`)
       .join('')}</ul>`,
-    ext(POSTS[1].url, T.shelf.post, 'btn primary') + ext(LINKS.books, T.shelf.cta),
+    ext(SKOOB.url, T.shelf.skoob, 'btn primary') + ext(LINKS.books, T.shelf.cta),
   );
 
   const recipes = chapter(
@@ -351,6 +391,26 @@ export function renderStory(lang) {
     frame(img('omelette.webp'), 'Logo Omelette Au Fromage', '', 'logo spin'),
     '',
     ext(LINKS.podcast, T.podcast.cta, 'btn primary') + ext(POSTS[0].url, T.podcast.post),
+  );
+
+  const disk = chapter(
+    'disk',
+    'collage',
+    T.disk,
+    frame(img('disk-discovery.webp'), 'Disk Discovery', '', 'tilt-r'),
+    `<ul class="rarity">${T.disk.rarity
+      .map(([stars, name, pos]) => `<li><span>${stars}</span><b>${name}</b><em>#${pos}</em></li>`)
+      .join('')}</ul>`,
+    ext(LINKS.disk, T.disk.cta, 'btn primary'),
+  );
+
+  const rodada = chapter(
+    'rodada',
+    'arcade',
+    T.rodada,
+    frame(img('rodada.webp'), 'Rodada', '', 'tilt-l'),
+    `<p class="share-grid" aria-hidden="true">Termo #1234 3/6<br />⬛🟨⬛⬛🟩<br />🟩🟨⬛🟩🟩<br />🟩🟩🟩🟩🟩</p>`,
+    ext(LINKS.rodada, T.rodada.cta, 'btn primary'),
   );
 
   const blog = chapter(
@@ -376,7 +436,7 @@ export function renderStory(lang) {
       ext(LINKS.blog, 'Blog'),
   );
 
-  return `${directory(T, lang)}${prologue}${about}${computer}${map}${shelf}${recipes}${podcast}${blog}${photo}
+  return `${directory(T, lang)}${prologue}${about}${computer}${map}${recipes}${shelf}${podcast}${disk}${rodada}${blog}${photo}
     <footer class="site-footer">
       <a href="#office" class="back">${T.back}</a>
       <nav class="footer-sites" aria-label="${T.sites.title}">${SITES.map((s) => `<a href="${s.page}">${s.name}</a>`).join('')}</nav>
@@ -389,8 +449,10 @@ export const STORY_ANCHOR = {
   about: 'story-about',
   computer: 'story-computer',
   map: 'story-map',
-  shelf: 'story-shelf',
+  shelf: 'story-recipes', // a estante abre pelas receitas (capítulo 4), seguida dos livros
   podcast: 'story-podcast',
   blog: 'story-blog',
   photo: 'story-photo',
+  disk: 'story-disk',
+  rodada: 'story-rodada',
 };

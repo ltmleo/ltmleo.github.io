@@ -222,7 +222,9 @@ const rand = (a, b) => a + Math.random() * (b - a);
 function randomFloorPoint() {
   for (;;) {
     const x = rand(FLOOR.minX + 1, FLOOR.maxX - 1), z = rand(FLOOR.minZ + 0.5, FLOOR.maxZ - 1);
-    if (!(x > 4.6 && x < 9.8 && z > 3.6 && z < 8.8)) return [x, z]; // fora da caminha
+    const inBed = x > 4.6 && x < 9.8 && z > 3.6 && z < 8.8;
+    const inConsole = x < -5.6 && z > 3 && z < 7.4; // rack da TV e controle (Rodada)
+    if (!inBed && !inConsole) return [x, z];
   }
 }
 const angleTo = (dx, dz) => Math.atan2(-dz, dx);

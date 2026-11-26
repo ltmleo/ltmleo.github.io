@@ -17,9 +17,12 @@ export const LINKS = {
   recipes: pageOf('receitas'),
   travel: pageOf('caraiqbonito'),
   podcast: pageOf('omeletteaufromage'),
+  disk: pageOf('disk-discovery'),
+  rodada: pageOf('rodada'),
+  skoob: 'https://github.com/ltmleo/skoob-recomenda',
 };
 
-// Repositórios com estrelas
+// Repositórios de código em destaque no Computador (os sites ficam em SITES)
 export const REPOS = [
   {
     name: 'k8s-clean-yaml',
@@ -32,27 +35,23 @@ export const REPOS = [
     },
   },
   {
-    name: 'blog',
+    name: 'aks-helper',
     stars: 1,
-    lang: 'TypeScript',
-    url: 'https://github.com/ltmleo/blog',
-    page: LINKS.blog,
+    lang: 'Python',
+    url: 'https://github.com/ltmleo/aks-helper',
     desc: {
-      pt: 'Blog pessoal em Docusaurus: notas de estudo, livros e projetos.',
-      en: 'Personal Docusaurus blog: study notes, books and projects.',
-    },
-  },
-  {
-    name: 'fullcyle',
-    stars: 1,
-    lang: 'Go',
-    url: 'https://github.com/ltmleo/fullcyle',
-    desc: {
-      pt: 'Desafios, aulas e experimentos do curso Full Cycle.',
-      en: 'Full Cycle challenges, classes and experiments.',
+      pt: 'Configura o kubectl para clusters AKS em várias assinaturas do Azure, via az-cli.',
+      en: 'Sets up kubectl for AKS clusters across Azure subscriptions, via az-cli.',
     },
   },
 ];
+
+// Recomendador de livros em destaque na estante
+export const SKOOB = {
+  name: 'skoob-recomenda',
+  lang: 'Go',
+  url: LINKS.skoob,
+};
 
 // Projetos com página publicada (todos os sites, menos a própria home)
 export const SITES = SHARED.sites
@@ -99,7 +98,7 @@ export const I18N = {
     introHint: 'Clique nos objetos do escritório para explorar.',
     introSites: 'ou vá direto para todos os sites ↓',
     sitesHud: 'SITES',
-    hint: 'Clique nos objetos · teclas 1–7',
+    hint: 'Clique nos objetos · teclas 1–9',
     explored: 'Explorado',
     achievement: '🏆 Conquista desbloqueada: Explorador do escritório!',
     close: 'Fechar',
@@ -112,10 +111,12 @@ export const I18N = {
       about: 'Quadro · Quem sou eu',
       computer: 'Computador · Projetos',
       map: 'Mapa · Viagens',
-      shelf: 'Estante · Livros e receitas',
+      shelf: 'Estante · Receitas e livros',
       podcast: 'Walkman · Podcast',
       blog: 'Mural · Blog',
       photo: 'Porta-retrato · Pessoal',
+      disk: 'Vitrola · Disk Discovery',
+      rodada: 'Videogame · Rodada',
     },
     about: {
       kicker: 'Quem sou eu',
@@ -134,8 +135,8 @@ export const I18N = {
     },
     computer: {
       kicker: 'Projetos no GitHub',
-      lead: 'Uma seleção dos meus repositórios: os que receberam estrelas e os que têm página publicada.',
-      starred: 'Com estrelas',
+      lead: 'Ferramentas de plataforma que publiquei como código aberto, e todos os projetos com página no ar.',
+      starred: 'Ferramentas de Kubernetes',
       sites: 'Com página no ar',
       all: 'Ver todos no GitHub',
     },
@@ -147,12 +148,28 @@ export const I18N = {
     },
     shelf: {
       kicker: 'Estante',
-      lead: 'Notas de leitura dos livros que li ou estou lendo, e as receitas da família.',
-      books: 'Livros',
+      lead: 'Nesta estante moram os cadernos de receitas da família e os livros, com um recomendador que sugere o próximo.',
+      books: 'Notas de leitura',
       recipes: 'Receitas de família',
-      recipesLead: 'Receitas escaneadas dos cadernos da família e digitalizadas com Inteligência Artificial.',
+      recipesLead: 'Os cadernos da família escaneados página por página e transcritos com Inteligência Artificial, para nenhum sabor se perder.',
+      skoob: 'skoob-recomenda',
+      skoobLead: 'Lê a sua estante do Skoob, encontra leitores com gosto parecido e sugere o que ler a seguir, sempre com o motivo. Roda no seu computador, sem servidor.',
+      skoobTags: ['Go', 'Filtragem colaborativa', 'CLI + app local'],
+      skoobCta: 'Ver o skoob-recomenda',
       allBooks: 'Todas as notas de leitura',
       allRecipes: 'Abrir as receitas',
+    },
+    disk: {
+      kicker: 'Discos',
+      lead: '<b>Disk Discovery</b> — abra pacotes e descubra os 500 maiores álbuns de todos os tempos 💿',
+      body: 'Cada disco da lista da Rolling Stone (2020) é uma carta. Quanto mais alto no ranking, mais raro: os cinco primeiros são lendários. A abertura do pacote tem scratch de DJ, suspense e fanfarra, tudo sintetizado no navegador.',
+      cta: 'Abrir um pacote',
+    },
+    rodada: {
+      kicker: 'Jogos',
+      lead: '<b>Rodada</b> — sua rodada diária de jogos 🎮',
+      body: 'Marque os desafios que você joga todo dia (Termo, Dueto, Wordle, Conexo…), cole o resultado do botão “Compartilhar” e acompanhe sequências e histórico. Sem login: tudo fica no seu aparelho, e funciona offline.',
+      cta: 'Jogar a rodada de hoje',
     },
     podcast: {
       kicker: 'Podcast',
@@ -181,7 +198,7 @@ export const I18N = {
     introHint: 'Click the objects in the office to explore.',
     introSites: 'or jump straight to all sites ↓',
     sitesHud: 'SITES',
-    hint: 'Click objects · keys 1–7',
+    hint: 'Click objects · keys 1–9',
     explored: 'Explored',
     achievement: '🏆 Achievement unlocked: Office explorer!',
     close: 'Close',
@@ -194,10 +211,12 @@ export const I18N = {
       about: 'Whiteboard · About me',
       computer: 'Computer · Projects',
       map: 'Map · Travel',
-      shelf: 'Shelf · Books & recipes',
+      shelf: 'Shelf · Recipes & books',
       podcast: 'Walkman · Podcast',
       blog: 'Corkboard · Blog',
       photo: 'Photo frame · Personal',
+      disk: 'Record player · Disk Discovery',
+      rodada: 'Game console · Rodada',
     },
     about: {
       kicker: 'About me',
@@ -216,8 +235,8 @@ export const I18N = {
     },
     computer: {
       kicker: 'GitHub projects',
-      lead: 'A selection of my repositories: the starred ones and the ones with a live page.',
-      starred: 'Starred',
+      lead: 'Platform tools I published as open source, and every project with a live page.',
+      starred: 'Kubernetes tools',
       sites: 'Live pages',
       all: 'See everything on GitHub',
     },
@@ -229,12 +248,28 @@ export const I18N = {
     },
     shelf: {
       kicker: 'Bookshelf',
-      lead: 'Reading notes on books I have read or am reading, and the family recipes (in Portuguese).',
-      books: 'Books',
+      lead: 'This shelf holds the family recipe notebooks and the books, plus a recommender that picks the next one (in Portuguese).',
+      books: 'Reading notes',
       recipes: 'Family recipes',
-      recipesLead: 'Recipes scanned from family notebooks and digitized with Artificial Intelligence.',
+      recipesLead: 'Family notebooks scanned page by page and transcribed with Artificial Intelligence, so no flavor gets lost.',
+      skoob: 'skoob-recomenda',
+      skoobLead: 'Reads your Skoob bookshelf, finds readers with similar taste and suggests what to read next, always with the reason. Runs on your computer, no server.',
+      skoobTags: ['Go', 'Collaborative filtering', 'CLI + local app'],
+      skoobCta: 'See skoob-recomenda',
       allBooks: 'All reading notes',
       allRecipes: 'Open the recipes',
+    },
+    disk: {
+      kicker: 'Records',
+      lead: '<b>Disk Discovery</b> — open packs and discover the 500 greatest albums of all time 💿',
+      body: 'Every album on the Rolling Stone list (2020) is a card. The higher in the ranking, the rarer: the top five are legendary. Opening a pack comes with DJ scratches, suspense and a fanfare, all synthesized in the browser (in Portuguese).',
+      cta: 'Open a pack',
+    },
+    rodada: {
+      kicker: 'Games',
+      lead: '<b>Rodada</b> — your daily round of games 🎮',
+      body: 'Check off the puzzles you play every day (Wordle, Termo, Conexo…), paste the result from the “Share” button and track streaks and history. No login: everything stays on your device, and it works offline (in Portuguese).',
+      cta: 'Play today’s round',
     },
     podcast: {
       kicker: 'Podcast',
@@ -259,7 +294,7 @@ export const I18N = {
   },
 };
 
-export const OBJECT_ORDER = ['about', 'computer', 'map', 'shelf', 'podcast', 'blog', 'photo'];
+export const OBJECT_ORDER = ['about', 'computer', 'map', 'shelf', 'podcast', 'blog', 'photo', 'disk', 'rodada'];
 export const OBJECT_ICONS = {
   about: '📋',
   computer: '💻',
@@ -268,4 +303,6 @@ export const OBJECT_ICONS = {
   podcast: '🎧',
   blog: '📌',
   photo: '🖼️',
+  disk: '💿',
+  rodada: '🎮',
 };
